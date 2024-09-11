@@ -1,0 +1,20 @@
+{
+    "name": "bayscope/paystack",
+    "description": "Full PHP paystack plugin for payment integragration",
+    "type": "libary",
+    "require": {
+        "guzzlehttp/guzzle": "*"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Bayscope\\Paystack\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "sirabdull",
+            "email": "sirabdull70@gmail.com"
+        }
+    ]
+}
