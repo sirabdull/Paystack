@@ -28,20 +28,30 @@ class Singlecharge
     }
 
     /**
+     * generate random string for transaction reffrence
+     * @return string
+     */
+    public function generateRefference()
+    {
+        $length = 9;
+        return 'TRX_'. strtoupper(bin2hex(random_bytes($length/2)));
+    }
+
+    /**
      * Initialize the  transaction
      *
-     * @return array {
+     * @return  {
      *     @var bool $status Transaction initialization status
      *     @var string $message Status message
      *     @var array $data {
      *         @var string $authorization_url URL to redirect customer for payment ( redirect to this Url to complete transaction)
      *         @var string $access_code Access code for the transaction
      *         @var string $reference Unique transaction reference (you can use this to verify transaction)   @method  verifyTransaction(@param string $reffrence)
-     *      
+     *
      *     }
      * }
      */
-    public function initialize(): mixed
+    public function initialize(): \stdClass | array
     {
         try {
             $response = $this->client->post(uri: '/transaction/initialize', options: [
@@ -58,7 +68,7 @@ class Singlecharge
      * Verify a transaction
      *
      * @param string $reference The transaction reference to verify
-     * @return array {
+     * @return array | \stdClass {
      *     @var bool $status Transaction verification status
      *     @var string $message Status message
      *     @var array $data {
@@ -77,12 +87,12 @@ class Singlecharge
      *     }
      * }
      */
-    public function verifyTransaction($reference)
+    public function verifyTransaction($reference): array | \stdClass
     {
         try {
             $response = $this->client->get(uri: '/transaction/verify/' . $reference);
 
-            return json_decode(json: $response->getBody(), associative: true);
+            return json_decode(json: $response->getBody());
         } catch (RequestException $e) {
             return $this->handleException(e: $e);
         }
