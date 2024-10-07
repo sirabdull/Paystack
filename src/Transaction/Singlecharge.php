@@ -4,11 +4,11 @@ namespace Bayscope\Paystack\Transaction;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use Bayscope\Paystack\Traits\HasData;
+use Bayscope\Paystack\Traits\Hasdata;
 
 class Singlecharge
 {
-    use HasData;
+    use Hasdata;
 
     protected $client;
     protected $baseUrl = 'https://api.paystack.co';
@@ -102,7 +102,7 @@ class Singlecharge
      * Handle exceptions from API requests
      *
      * @param RequestException $e The caught exception
-     * @return array {
+     * @return \stdClass| array {
      *     @var bool $status Always false for exceptions
      *     @var string $message Error message
      * }
